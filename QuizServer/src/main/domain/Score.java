@@ -1,6 +1,6 @@
-package model;
+package domain;
 
-public interface Score {
+public interface Score extends Comparable<Score> {
 
 	public int getAmount();
 	
@@ -13,4 +13,5 @@ public interface Score {
 	public Long getQuizId();
 	
 	public void setQuizId(Long quizId);
+	
 }

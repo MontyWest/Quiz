@@ -1,9 +1,13 @@
-package model.impl;
+package domain.impl;
 
-import model.Score;
+import java.io.Serializable;
 
-public class ScoreImpl implements Score {
+import domain.Score;
 
+public class ScoreImpl implements Score, Serializable {
+
+	private static final long serialVersionUID = 2L;
+	
 	private int amount;
 	private String name;
 	private Long quizId;
@@ -46,5 +50,13 @@ public class ScoreImpl implements Score {
 		this.quizId = quizId;
 	}
 	
+	@Override
+	public int compareTo(Score score) {
+		return this.getAmount() - score.getAmount();
+	}
 	
+	@Override
+	public String toString() {
+		return "Score: " + this.amount + " by " + this.name;
+	}
 }
