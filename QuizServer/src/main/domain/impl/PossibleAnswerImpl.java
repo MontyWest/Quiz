@@ -88,12 +88,4 @@ public class PossibleAnswerImpl implements PossibleAnswer, Serializable {
 		}
 		return true;
 	}
-
-	@Override
-	public PossibleAnswer copy(Long newQuizId, Integer newQuesitonNumber,
-			Character newAnswerCharacter) {
-		return new PossibleAnswerImpl(this.answerText, this.correct,
-				newAnswerCharacter, newQuesitonNumber, newQuizId);
-	}
-
 }

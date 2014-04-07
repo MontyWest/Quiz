@@ -30,15 +30,4 @@ public interface PossibleAnswer {
 	 */
 	public boolean isValid();
 	
-	/***
-	 * Copies possible answer with same text and correct/incorrect but with
-	 * new quizId, questionNumber and answerChar
-	 * 
-	 * @param newQuizId
-	 * @param newQuesitonNumber
-	 * @param newAnswerCharacter
-	 * @return
-	 */
-	public PossibleAnswer copy(Long newQuizId, Integer newQuesitonNumber, Character newAnswerCharacter);
-	
 }

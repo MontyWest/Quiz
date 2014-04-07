@@ -6,6 +6,8 @@ public interface Quiz {
 
 	public Long getId();
 	
+	public void setId(Long id);
+	
 	public String getTitle();
 	
 	public void setTitle(String title);
@@ -15,11 +17,12 @@ public interface Quiz {
 	public void setQuestions(Map<Integer, Question> questions);
 	
 	/***
-	 * Copies a question and adds it to the quiz.
+	 * Returns the question in the questions map corresponding to the
+	 * questionNumber
 	 * 
-	 * @param question
+	 * @param questionNumber
 	 */
-	public Question copyAndAddQuestion(Question question);
+	public Question getQuestion(Integer questionNumber);
 	
 	/***
 	 * Creates and adds a new empty (answerless) question to the quiz
@@ -30,12 +33,12 @@ public interface Quiz {
 	public Question addQuestion(String questionText);
 	
 	/***
-	 * Removes the question with the corresponding questionNumber
+	 * Adds question to the quiz
 	 * 
-	 * @param quesitonNumber
-	 * @return true is successful, false if questionNumber doesn't exist
+	 * @param question
+	 * @return the question number of added question
 	 */
-	public boolean removeQuestion(Integer quesitonNumber);
+	public Integer addQuestion(Question question);
 	
 	public Score getTopScore();
 	

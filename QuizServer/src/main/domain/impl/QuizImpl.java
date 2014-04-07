@@ -1,6 +1,7 @@
 package domain.impl;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -12,20 +13,22 @@ public class QuizImpl implements Quiz, Serializable {
 	
 	private static final long serialVersionUID = 4L;
 	
-	private final Long id;
+	private Long id;
 	private String title;
 	private Map<Integer, Question> questions;
 	private Score topScore;
 	private AtomicInteger lastQuestionNumber;
 	
-	public QuizImpl(Long id) {
-		this.id = id;
-		
-	}
+	public QuizImpl() {}
 	
 	@Override
 	public Long getId() {
 		return id;
+	}
+	
+	@Override
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	@Override
@@ -40,7 +43,7 @@ public class QuizImpl implements Quiz, Serializable {
 
 	@Override
 	public Map<Integer, Question> getQuestions() {
-		return questions;
+		return Collections.unmodifiableMap(questions);
 	}
 	
 	@Override
@@ -49,11 +52,8 @@ public class QuizImpl implements Quiz, Serializable {
 	}
 	
 	@Override
-	public Question copyAndAddQuestion(Question question) {
-		Integer newQuestionNumber = this.lastQuestionNumber.incrementAndGet();
-		Question newQuestion = question.copy(this.id, newQuestionNumber);
-		this.questions.put(newQuestionNumber, newQuestion);
-		return newQuestion;
+	public Question getQuestion(Integer questionNumber) {
+		return this.questions.get(questionNumber);
 	}
 	
 	@Override
@@ -65,15 +65,11 @@ public class QuizImpl implements Quiz, Serializable {
 	}
 	
 	@Override
-	public boolean removeQuestion(final Integer questionNumber) {
-		if (this.questions != null) {
-			if (questions.containsKey(questionNumber)) {
-				questions.remove(questionNumber);
-				//TODO sort out question numbers.
-				return true;
-			}
-		}
-		return false;
+	public Integer addQuestion(Question question) {
+		Integer questionNumber = this.lastQuestionNumber.incrementAndGet();
+		question.setQuestionNumber(questionNumber);
+		this.questions.put(questionNumber, question);
+		return questionNumber;
 	}
 	
 	@Override
@@ -121,5 +117,10 @@ public class QuizImpl implements Quiz, Serializable {
 			}
 		}
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return this.id + ": " + this.title;
 	}
 }

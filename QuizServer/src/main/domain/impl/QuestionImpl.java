@@ -19,7 +19,9 @@ public class QuestionImpl implements Question, Serializable {
 	private Integer questionNumber;
 	private AtomicInteger lastAnswerCharInt;
 	
-	public QuestionImpl(){}
+	public QuestionImpl(){
+		this.lastAnswerCharInt.set(((int)'a')-1);
+	}
 
 	public QuestionImpl(String questionText, Integer questionNumber, Long quizId) {
 		this.questionText = questionText;
@@ -47,13 +49,10 @@ public class QuestionImpl implements Question, Serializable {
 	public void setPossibleAnswers(Map<Character, PossibleAnswer> possibleAnswers) {
 		this.possibleAnswers = possibleAnswers;
 	}
-
+	
 	@Override
-	public PossibleAnswer copyAndAddPossibleAnswer(PossibleAnswer answer) {
-		Character newAnswerChar = (char)(this.lastAnswerCharInt.incrementAndGet());
-		PossibleAnswer newAnswer = answer.copy(this.quizId, this.questionNumber, newAnswerChar);
-		possibleAnswers.put(newAnswerChar, newAnswer);
-		return newAnswer;
+	public PossibleAnswer getPossibleAnswer(Character answerCharacter) {
+		return this.possibleAnswers.get(answerCharacter);
 	}
 	
 	@Override
@@ -65,15 +64,11 @@ public class QuestionImpl implements Question, Serializable {
 	}
 	
 	@Override
-	public boolean removePossibleAnswer(Character answerChar){
-		if (this.possibleAnswers != null) {
-			if (possibleAnswers.containsKey(answerChar)) {
-				possibleAnswers.remove(answerChar);
-				//TODO sort out question numbers.
-				return true;
-			}
-		}
-		return false;
+	public Character addPossibleAnswer(PossibleAnswer possibleAnswer) {
+		Character answerCharacter = (char)(this.lastAnswerCharInt.incrementAndGet());
+		possibleAnswer.setAnswerCharacter(answerCharacter);
+		this.possibleAnswers.put(answerCharacter, possibleAnswer);
+		return answerCharacter;
 	}
 	
 	@Override
@@ -113,15 +108,6 @@ public class QuestionImpl implements Question, Serializable {
 			}
 		}
 		return (correctAnswerCount == 1);
-	}
-	
-	@Override
-	public Question copy(Long newQuizId, Integer newQuestionNumber){
-		Question newQuestion = new QuestionImpl(this.questionText, newQuestionNumber, newQuizId);
-		for (PossibleAnswer answer : this.possibleAnswers.values()) {
-			newQuestion.copyAndAddPossibleAnswer(answer);
-		}
-		return newQuestion;
 	}
 	
 	@Override

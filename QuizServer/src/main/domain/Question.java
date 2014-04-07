@@ -13,14 +13,14 @@ public interface Question {
 	public void setPossibleAnswers(Map<Character, PossibleAnswer> possibleAnswers);
 
 	/***
-	 * Copies and adds a possibleAnswer to the question, updating to the correct answer
-	 * character
+	 * Returns the possible answer corresponding to the answer character from the 
+	 * answers map
 	 * 
-	 * @param possibleAnswers
-	 * @returns newly copied PossibleAnswer
+	 * @param answerCharacter
+	 * @return
 	 */
-	public PossibleAnswer copyAndAddPossibleAnswer(PossibleAnswer answer);
-
+	public PossibleAnswer getPossibleAnswer(Character answerCharacter);
+	
 	/***
 	 * Creates and adds a new possibleAnswer to the question, calculating
 	 * correct answer character.
@@ -32,12 +32,12 @@ public interface Question {
 	public PossibleAnswer addPossibleAnswer(String answerText, boolean correct);
 	
 	/***
-	 * Removes possible answer from question with corresponding answerChar
+	 * Adds a new possible answer to the question
 	 * 
-	 * @param answerChar
-	 * @return true is successful, false if answerChar doesn't exist
+	 * @param possibleAnswer
+	 * @return character of the possible answer
 	 */
-	public boolean removePossibleAnswer(Character answerChar);
+	public Character addPossibleAnswer(PossibleAnswer possibleAnswer);
 	
 	public Long getQuizId();
 	
@@ -56,13 +56,4 @@ public interface Question {
 	 */
 	public boolean isValid();
 	
-	/***
-	 * Creates a new question object with same text and answers but with
-	 * new QuizId and new QuestionNumber.
-	 * 
-	 * @param newQuizId
-	 * @param newQuestionNumber
-	 * @return new question object
-	 */
-	public Question copy(Long newQuizId, Integer newQuestionNumber);
 }

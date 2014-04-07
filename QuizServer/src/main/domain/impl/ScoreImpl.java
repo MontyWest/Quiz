@@ -12,7 +12,7 @@ public class ScoreImpl implements Score, Serializable {
 	private String name;
 	private Long quizId;
 	
-	public ScoreImpl(){}
+	public ScoreImpl() {}
 	
 	public ScoreImpl(int amount, String name, Long quizId) {
 		this.amount = amount;
