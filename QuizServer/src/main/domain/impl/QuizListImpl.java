@@ -67,6 +67,7 @@ public class QuizListImpl implements QuizList, Serializable {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		sb.append("### Quiz List ###/n");
 		for (Map.Entry<Long, Quiz> entry : quizzes.entrySet()) {
 			sb.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
 		}

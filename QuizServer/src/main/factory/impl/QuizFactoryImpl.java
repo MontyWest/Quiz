@@ -1,5 +1,7 @@
 package factory.impl;
 
+import java.io.Serializable;
+
 import domain.PossibleAnswer;
 import domain.Question;
 import domain.Quiz;
@@ -10,7 +12,7 @@ import domain.impl.QuizImpl;
 import domain.impl.ScoreImpl;
 import factory.QuizFactory;
 
-public class QuizFactoryImpl implements QuizFactory {
+public class QuizFactoryImpl implements QuizFactory, Serializable {
 
 	@Override
 	public Quiz getEmptyQuiz() {

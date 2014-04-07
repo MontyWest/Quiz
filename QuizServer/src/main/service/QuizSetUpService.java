@@ -24,9 +24,9 @@ public interface QuizSetUpService {
 	 * Adds a Quiz to the QuizList
 	 * 
 	 * @param quiz
-	 * @return true is successful
+	 * @return id of new quiz
 	 */
-	public boolean addQuiz(Quiz quiz);
+	public Long addQuiz(Quiz quiz);
 	
 	/***
 	 * Closes quiz corresponding to id
