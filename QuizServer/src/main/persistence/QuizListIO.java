@@ -47,17 +47,17 @@ public class QuizListIO {
 				System.out.println("Nothing loaded.");
 				return null;
 			} else {
-				try {
-					d.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 				QuizList quizList = null;
 				try {
 					quizList = (QuizList) d.readObject();
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+				try {
+					d.close();
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 				return quizList;

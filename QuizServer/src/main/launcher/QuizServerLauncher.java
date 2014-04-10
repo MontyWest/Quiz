@@ -2,6 +2,7 @@ package launcher;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
@@ -25,6 +26,9 @@ public class QuizServerLauncher {
 
 	private static void launch() {
 
+//		if (System.getSecurityManager() == null) {
+//			System.setSecurityManager(new RMISecurityManager());
+//		}
 		try {
 			// 2. Create the registry if there is not one
 			LocateRegistry.createRegistry(1099);
