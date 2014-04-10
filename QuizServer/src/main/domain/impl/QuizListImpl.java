@@ -14,8 +14,6 @@ public class QuizListImpl implements QuizList, Serializable {
 
 	private static final long serialVersionUID = 5L;
 	
-	public static final String FILENAME = "quizlist.ser";
-
 	private static QuizList instance = new QuizListImpl();
 
 	private Map<Long, Quiz> quizzes;

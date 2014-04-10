@@ -1,39 +1,63 @@
 package service.impl;
 
+import java.util.Collections;
+import java.util.Set;
+
 import service.QuizPlayService;
 import domain.Quiz;
 import domain.QuizList;
 import domain.Score;
 import domain.impl.QuizListImpl;
+import exception.QuizInvalidException;
+import exception.QuizNotFoundException;
+import factory.ScoreFactory;
+import factory.impl.ScoreFactoryImpl;
 
 public class QuizPlayServiceImpl implements QuizPlayService {
 
+	ScoreFactory scoreFactory = new ScoreFactoryImpl();
+	
 	@Override
 	public String getQuizListDisplay() {
 		QuizList quizList = QuizListImpl.getInstance();
 		return quizList.toString();
 	}
+	
+	@Override
+	public Set<Long> getQuizIdSet() {
+		QuizList quizList = QuizListImpl.getInstance();
+		return Collections.unmodifiableSet(quizList.getQuizzes().keySet());
+	}
 
 	@Override
-	public Quiz getQuiz(Long quizId) {
+	public Quiz getQuiz(Long quizId) throws QuizInvalidException {
 		QuizList quizList = QuizListImpl.getInstance();
 		Quiz quiz = quizList.getQuiz(quizId);
 		if (quiz == null) {
-			//TODO: Exception?
+			return null;
 		}
 		if (!quiz.isValid()) {
-			//TODO: Exception?
+			throw new QuizInvalidException("ID: " + quizId);
 		}
 		return quiz;
 	}
 
 	@Override
-	public boolean updateQuizWithScore(Long quizId, Score score) {
+	public boolean updateQuizWithScore(Long quizId, int scoreAmount, String scoreName) throws QuizInvalidException, QuizNotFoundException, IllegalArgumentException {
 		QuizList quizList = QuizListImpl.getInstance();
 		Quiz quiz = quizList.getQuiz(quizId);
 		if (quiz == null) {
-			//TODO: Exception?
+			throw new QuizNotFoundException("ID: " + quizId);
 		}
+		if (!quiz.isValid()) {
+			throw new QuizInvalidException("ID: " + quizId);
+		}
+		if (scoreAmount > quiz.getQuestions().size()) {
+			throw new IllegalArgumentException("Score " + scoreAmount + " too high for quiz " + quizId);
+		}
+		Score score = scoreFactory.getEmptyScore();
+		score.setAmount(scoreAmount);
+		score.setName(scoreName);
 		return quiz.compareAndSetTopScore(score);
 	}
 

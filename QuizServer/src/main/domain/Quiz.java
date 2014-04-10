@@ -25,14 +25,6 @@ public interface Quiz {
 	public Question getQuestion(Integer questionNumber);
 	
 	/***
-	 * Creates and adds a new empty (answerless) question to the quiz
-	 * 
-	 * @param questionText
-	 * @return created question
-	 */
-	public Question addQuestion(String questionText);
-	
-	/***
 	 * Adds question to the quiz
 	 * 
 	 * @param question
@@ -52,16 +44,6 @@ public interface Quiz {
 	 * @returns true if topScore changed
 	 */
 	public boolean compareAndSetTopScore(Score newScore);
-	
-	/***
-	 * Creates new score object then compares new Score to current 
-	 * top Score, the top Score becomes new Score is new Score > topScore
-	 * 
-	 * @param amount
-	 * @param name
-	 * @return true if topScore changed
-	 */
-	public boolean compareAndSetTopScore(int amount, String name);
 	
 	/***
 	 * Validates the quiz by checking it has questions,

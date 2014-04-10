@@ -56,14 +56,6 @@ public class QuestionImpl implements Question, Serializable {
 	}
 	
 	@Override
-	public PossibleAnswer addPossibleAnswer(String answerText, boolean correct) {
-		Character answerChar = (char)(this.lastAnswerCharInt.incrementAndGet());
-		PossibleAnswer possibleAnswer = new PossibleAnswerImpl(answerText, correct, answerChar, this.questionNumber, this.quizId);
-		possibleAnswers.put(answerChar, possibleAnswer);
-		return possibleAnswer;
-	}
-	
-	@Override
 	public Character addPossibleAnswer(PossibleAnswer possibleAnswer) {
 		Character answerCharacter = (char)(this.lastAnswerCharInt.incrementAndGet());
 		possibleAnswer.setAnswerCharacter(answerCharacter);

@@ -57,14 +57,6 @@ public class QuizImpl implements Quiz, Serializable {
 	}
 	
 	@Override
-	public Question addQuestion(String questionText) {
-		Integer questionNumber = this.lastQuestionNumber.incrementAndGet();
-		Question question = new QuestionImpl(questionText, questionNumber, this.id);
-		this.questions.put(questionNumber, question);
-		return question;
-	}
-	
-	@Override
 	public Integer addQuestion(Question question) {
 		Integer questionNumber = this.lastQuestionNumber.incrementAndGet();
 		question.setQuestionNumber(questionNumber);
@@ -95,12 +87,6 @@ public class QuizImpl implements Quiz, Serializable {
 				return false;
 			}
 		}
-	}
-	
-	@Override
-	public boolean compareAndSetTopScore(int amount, String name) {
-		Score newScore = new ScoreImpl(amount, name, this.id);
-		return compareAndSetTopScore(newScore);
 	}
 	
 	@Override

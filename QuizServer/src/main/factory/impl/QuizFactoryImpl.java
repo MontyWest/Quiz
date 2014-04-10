@@ -5,14 +5,14 @@ import java.io.Serializable;
 import domain.PossibleAnswer;
 import domain.Question;
 import domain.Quiz;
-import domain.Score;
 import domain.impl.PossibleAnswerImpl;
 import domain.impl.QuestionImpl;
 import domain.impl.QuizImpl;
-import domain.impl.ScoreImpl;
 import factory.QuizFactory;
 
 public class QuizFactoryImpl implements QuizFactory, Serializable {
+
+	private static final long serialVersionUID = 11L;
 
 	@Override
 	public Quiz getEmptyQuiz() {
@@ -28,10 +28,4 @@ public class QuizFactoryImpl implements QuizFactory, Serializable {
 	public PossibleAnswer getEmptyPossibleAnswer() {
 		return new PossibleAnswerImpl();
 	}
-
-	@Override
-	public Score getEmptyScore() {
-		return new ScoreImpl();
-	}
-
 }

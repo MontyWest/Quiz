@@ -8,6 +8,7 @@ public interface QuizList {
 	
 	public void setQuizzes(Map<Long, Quiz> quizzes);
 	
+	
 	/***
 	 * Returns the quiz corresponding to the quizId
 	 * 

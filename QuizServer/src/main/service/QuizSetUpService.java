@@ -1,6 +1,7 @@
 package service;
 
 import domain.Quiz;
+import exception.QuizInvalidException;
 import factory.QuizFactory;
 
 /***
@@ -26,7 +27,7 @@ public interface QuizSetUpService {
 	 * @param quiz
 	 * @return id of new quiz
 	 */
-	public Long addQuiz(Quiz quiz);
+	public Long addQuiz(Quiz quiz) throws QuizInvalidException;
 	
 	/***
 	 * Closes quiz corresponding to id
@@ -34,5 +35,5 @@ public interface QuizSetUpService {
 	 * @param quizId
 	 * @return closed quiz, null if not found
 	 */
-	public Quiz closeQuiz(Long quizId);
+	public Quiz removeQuiz(Long quizId);
 }

@@ -22,16 +22,6 @@ public interface Question {
 	public PossibleAnswer getPossibleAnswer(Character answerCharacter);
 	
 	/***
-	 * Creates and adds a new possibleAnswer to the question, calculating
-	 * correct answer character.
-	 * 
-	 * @param answerText
-	 * @param correct
-	 * @return possibleAnswer created
-	 */
-	public PossibleAnswer addPossibleAnswer(String answerText, boolean correct);
-	
-	/***
 	 * Adds a new possible answer to the question
 	 * 
 	 * @param possibleAnswer
