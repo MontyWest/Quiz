@@ -51,16 +51,17 @@ public class QuizListImpl implements QuizList, Serializable {
 
 	@Override
 	public Long addQuiz(Quiz quiz) {
-		Long quizId = this.lastQuizId.incrementAndGet();
+		Long quizId = lastQuizId.incrementAndGet();
 		quiz.setId(quizId);
 		this.quizzes.put(quizId, quiz);
-		return quizId;
+		return quizId;			
 	}
 	
 	@Override
 	public Quiz removeQuiz(Long quizId) {
 		return this.quizzes.remove(quizId);
 	}
+
 
 	@Override
 	public String toString() {

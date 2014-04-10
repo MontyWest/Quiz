@@ -71,6 +71,9 @@ public class QuestionImpl implements Question, Serializable {
 	@Override
 	public void setQuizId(Long quizId) {
 		this.quizId = quizId;
+		for (PossibleAnswer possibleAnswer : possibleAnswers.values()) {
+			possibleAnswer.setQuizId(quizId);
+		}
 	}
 
 	@Override
@@ -81,6 +84,9 @@ public class QuestionImpl implements Question, Serializable {
 	@Override
 	public void setQuestionNumber(Integer questionNumber) {
 		this.questionNumber = questionNumber;
+		for (PossibleAnswer possibleAnswer : possibleAnswers.values()) {
+			possibleAnswer.setQuestionNumber(questionNumber);
+		}
 	}
 	
 	@Override

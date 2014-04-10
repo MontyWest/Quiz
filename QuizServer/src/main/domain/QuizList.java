@@ -18,7 +18,7 @@ public interface QuizList {
 	public Quiz getQuiz(Long quizId);
 	
 	/***
-	 * Adds a new quiz
+	 * Adds a new quiz with a unique id
 	 * 
 	 * @param quiz
 	 * @return the id of the new quiz

@@ -29,24 +29,7 @@ public interface Question {
 	 */
 	public Character addPossibleAnswer(PossibleAnswer possibleAnswer);
 	
-	public Long getQuizId();
-	
-	/***
-	 * Sets quiz id and updates possible answers quiz id
-	 * 
-	 * @param questionNumber
-	 */
-	public void setQuizId(Long quizId);
-	
 	public Integer getQuestionNumber();
-	
-	/***
-	 * Sets question number and updates possible answers question
-	 * number
-	 * 
-	 * @param questionNumber
-	 */
-	public void setQuestionNumber(Integer questionNumber);
 	
 	/***
 	 * Validates the question by checking that question text is

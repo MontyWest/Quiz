@@ -3,15 +3,6 @@ package domain;
 import java.util.Map;
 
 public interface Quiz {
-
-	public Long getId();
-	
-	/***
-	 * Sets the id for the quiz, and updates questions and topscore quizId
-	 * 
-	 * @param id
-	 */
-	public void setId(Long id);
 	
 	public String getTitle();
 	
@@ -42,17 +33,6 @@ public interface Quiz {
 	public void setMaxScore(int maxScore);
 	
 	public Score getTopScore();
-	
-	public void setTopScore(Score topScore);
-	
-	/***
-	 * Compares newScore to current top Score, the top Score
-	 * becomes newScore is newScore > topScore
-	 * 
-	 * @param newScore
-	 * @returns true if topScore changed
-	 */
-	public boolean compareAndSetTopScore(Score newScore);
 	
 	/***
 	 * Validates the quiz by checking it has questions,

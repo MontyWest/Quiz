@@ -52,7 +52,7 @@ public class QuizPlayServiceImpl implements QuizPlayService {
 		if (!quiz.isValid()) {
 			throw new QuizInvalidException("ID: " + quizId);
 		}
-		if (scoreAmount > quiz.getQuestions().size()) {
+		if (scoreAmount > quiz.getMaxScore()) {
 			throw new IllegalArgumentException("Score " + scoreAmount + " too high for quiz " + quizId);
 		}
 		Score score = scoreFactory.getEmptyScore();

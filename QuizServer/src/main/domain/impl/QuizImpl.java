@@ -16,6 +16,7 @@ public class QuizImpl implements Quiz, Serializable {
 	private Long id;
 	private String title;
 	private Map<Integer, Question> questions;
+	private int maxScore;
 	private Score topScore;
 	private AtomicInteger lastQuestionNumber;
 	
@@ -29,6 +30,12 @@ public class QuizImpl implements Quiz, Serializable {
 	@Override
 	public void setId(Long id) {
 		this.id = id;
+		for (Question question : questions.values()) {
+			question.setQuizId(id);
+		}
+		if (topScore != null) {
+			topScore.setQuizId(id);
+		}
 	}
 	
 	@Override
@@ -49,6 +56,7 @@ public class QuizImpl implements Quiz, Serializable {
 	@Override
 	public void setQuestions(Map<Integer, Question> questions) {
 		this.questions = questions;
+		setMaxScore(questions.size());
 	}
 	
 	@Override
@@ -61,7 +69,18 @@ public class QuizImpl implements Quiz, Serializable {
 		Integer questionNumber = this.lastQuestionNumber.incrementAndGet();
 		question.setQuestionNumber(questionNumber);
 		this.questions.put(questionNumber, question);
+		setMaxScore(this.questions.size());
 		return questionNumber;
+	}
+	
+	@Override
+	public int getMaxScore() {
+		return maxScore;
+	}
+	
+	@Override
+	public void setMaxScore(int maxScore) {
+		this.maxScore = maxScore;
 	}
 	
 	@Override

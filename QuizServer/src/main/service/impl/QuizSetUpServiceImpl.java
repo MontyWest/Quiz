@@ -20,10 +20,11 @@ public class QuizSetUpServiceImpl implements QuizSetUpService {
 	@Override
 	public Long addQuiz(Quiz quiz) throws QuizInvalidException {
 		if (!quiz.isValid()) {
-			throw new QuizInvalidException();
+			throw new QuizInvalidException("Quiz invalid, questions may not have correct answers.");
 		}
 		QuizList quizList = QuizListImpl.getInstance();
-		return quizList.addQuiz(quiz);
+		Long quizId = quizList.addQuiz(quiz);
+		return quizId;
 	}
 
 	@Override
