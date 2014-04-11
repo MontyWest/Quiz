@@ -26,9 +26,9 @@ public class QuizServerLauncher {
 
 	private static void launch() {
 
-//		if (System.getSecurityManager() == null) {
-//			System.setSecurityManager(new RMISecurityManager());
-//		}
+		if (System.getSecurityManager() == null) {
+			System.setSecurityManager(new RMISecurityManager());
+		}
 		try {
 			// 2. Create the registry if there is not one
 			LocateRegistry.createRegistry(1099);
