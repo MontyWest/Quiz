@@ -20,7 +20,7 @@ public class QuizPlayServiceImpl implements QuizPlayService {
 	@Override
 	public String getQuizListDisplay() {
 		QuizList quizList = QuizListImpl.getInstance();
-		return quizList.toString();
+		return quizList.display();
 	}
 	
 	@Override

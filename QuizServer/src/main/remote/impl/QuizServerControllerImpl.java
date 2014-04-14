@@ -80,7 +80,7 @@ public class QuizServerControllerImpl extends UnicastRemoteObject implements Qui
 	}
 
 	@Override
-	public Score closeQuiz(Long quizId) throws RemoteException,
+	public Quiz closeQuiz(Long quizId) throws RemoteException,
 			QuizNotFoundException {
 		log("Close quiz " + quizId + " requested.");
 		Quiz quiz = setUpService.removeQuiz(quizId);
@@ -89,7 +89,7 @@ public class QuizServerControllerImpl extends UnicastRemoteObject implements Qui
 		} else {
 			Score topScore = quiz.getTopScore();
 			log("Quiz " + quizId + " closed, top score: " + topScore.getAmount() + " by " + topScore.getName());
-			return topScore;
+			return quiz;
 		}
 	}
 	

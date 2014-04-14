@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 import java.util.Set;
 
 import domain.Quiz;
-import domain.Score;
 import exception.QuizInvalidException;
 import exception.QuizNotFoundException;
 import factory.QuizFactory;
@@ -82,5 +81,5 @@ public interface QuizServerController extends Remote {
 	 * @throws RemoteException
 	 * @throws QuizNotFoundException if quiz doesn't exist
 	 */
-	public Score closeQuiz(Long quizId) throws RemoteException, QuizNotFoundException;
+	public Quiz closeQuiz(Long quizId) throws RemoteException, QuizNotFoundException;
 }

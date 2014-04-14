@@ -33,4 +33,10 @@ public interface QuizList {
 	 */
 	public Quiz removeQuiz(Long quizId);
 	
+	/***
+	 * Prints a formatted list of quizzes
+	 * 
+	 * @return
+	 */
+	public String display();
 }
