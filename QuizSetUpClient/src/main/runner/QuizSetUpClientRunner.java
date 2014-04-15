@@ -9,6 +9,7 @@ import remote.QuizServerController;
 import domain.PossibleAnswer;
 import domain.Question;
 import domain.Quiz;
+import exception.QuizInvalidException;
 import exception.QuizNotFoundException;
 import factory.QuizFactory;
 
@@ -25,38 +26,39 @@ public class QuizSetUpClientRunner {
 	}
 	
 	public void start() {
-		System.out.println("start called.");
-		this.menu();
-		
-		Quiz quiz = quizFactory.getEmptyQuiz();
-		quiz.setTitle("Test quiz");
-		Question question1 = quizFactory.getEmptyQuestion();
-		question1.setQuestionText("A or B?");
-		PossibleAnswer possibleAnswer1a = quizFactory.getEmptyPossibleAnswer();
-		possibleAnswer1a.setAnswerText("A");
-		possibleAnswer1a.setCorrect(true);
-		question1.addPossibleAnswer(possibleAnswer1a);
-		PossibleAnswer possibleAnswer1b = quizFactory.getEmptyPossibleAnswer();
-		possibleAnswer1a.setAnswerText("B");
-		question1.addPossibleAnswer(possibleAnswer1b);
-		quiz.addQuestion(question1);
-		System.out.print(quiz);
-		try {
-			Long id = server.recieveNewQuiz(quiz);
-			System.out.println("Sucessful add: " + id);
-			System.out.print(server.getQuizListDisplay());
-			Quiz getQuiz = server.getQuiz(id);
-			if(getQuiz == quiz) {System.out.println("Same");}
-			else {System.out.println("Not Same");
+		System.out.println("Add dummy quiz? (y/n)");
+		if (i.nextLine().equals("y")) {
+			Quiz quiz = quizFactory.getEmptyQuiz();
+			quiz.setTitle("Test quiz");
+			Question question1 = quizFactory.getEmptyQuestion();
+			question1.setQuestionText("A or B?");
+			PossibleAnswer possibleAnswer1a = quizFactory.getEmptyPossibleAnswer();
+			possibleAnswer1a.setAnswerText("A");
+			possibleAnswer1a.setCorrect(true);
+			question1.addPossibleAnswer(possibleAnswer1a);
+			PossibleAnswer possibleAnswer1b = quizFactory.getEmptyPossibleAnswer();
+			possibleAnswer1a.setAnswerText("B");
+			question1.addPossibleAnswer(possibleAnswer1b);
+			quiz.addQuestion(question1);
+			System.out.print(quiz);
+			try {
+				Long id = server.recieveNewQuiz(quiz);
+				System.out.println("Sucessful add: " + id);
+				System.out.print(server.getQuizListDisplay());
+				Quiz getQuiz = server.getQuiz(id);
+				if(getQuiz == quiz) {System.out.println("Same");}
+				else {System.out.println("Not Same");
+				}
+				System.out.println(quiz);
+				System.out.println(server.recieveScoreForQuiz(id, 1, "ME"));
+				System.out.println(server.closeQuiz(id));
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			System.out.println(quiz);
-			System.out.println(server.recieveScoreForQuiz(id, 1, "ME"));
-			System.out.println(server.closeQuiz(id));
-		} catch (Exception e) {
-			e.printStackTrace();
+		} else {
+			this.menu();
 		}
-		
-		
+		o.println("Quiz Set Up shutting down");
 	}
 	
 	private void menu() {
@@ -68,7 +70,7 @@ public class QuizSetUpClientRunner {
 			o.println("3. Close Quiz");
 			o.println("4. Quit");
 			int choice = 0;
-			while (choice < 1 || choice > 3) {
+			while (choice < 1 || choice > 4) {
 				o.print("Please enter an option: ");
 				try {
 					choice = Integer.parseInt(i.nextLine());
@@ -98,6 +100,31 @@ public class QuizSetUpClientRunner {
 			o.print(server.getQuizListDisplay());
 		} catch (RemoteException e) {
 			o.println("Server error" + e.getMessage());
+		}
+	}
+	
+	private void createQuiz() {
+		QuizCreationRunner quizCreationRunner = new QuizCreationRunner(quizFactory);
+		quizCreationRunner.launch();
+		Quiz quiz = quizCreationRunner.getQuiz();
+		if (quiz.isValid()) {
+			o.println("Would you like to upload your quiz? (y/n)");
+			String send = i.nextLine();
+			while (send.equals("y")) {
+				send = "n";
+				try {
+					Long id = server.recieveNewQuiz(quiz);
+					o.println("Congratulations your quiz has bee added, id:" + id);
+				} catch (RemoteException e) {
+					o.println("Server error, please try again. " + e.getMessage());
+					o.println("Would you like to try to send again? (y/n)");
+					send = i.nextLine();
+				} catch (QuizInvalidException e) {
+					o.println("Quiz Invalid, sending failed.");
+				} catch (IllegalArgumentException e) {
+					o.println("Empty quiz sent, not added.");
+				}
+			}
 		}
 	}
 	

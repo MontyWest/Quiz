@@ -68,6 +68,7 @@ public interface QuizServerController extends Remote {
 	 * @return id for the newly added quiz
 	 * @throws RemoteException
 	 * @throws QuizInvalidException if quiz is invalid
+	 * @throws InvalidArgumentException if quiz is null
 	 */
 	public Long recieveNewQuiz(Quiz quiz) throws RemoteException, QuizInvalidException, IllegalArgumentException;
 	

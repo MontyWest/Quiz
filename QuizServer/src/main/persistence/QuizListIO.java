@@ -60,6 +60,7 @@ public class QuizListIO {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				System.out.println("Quiz List loaded. Number of quizzes: " + quizList.getQuizzes().size());
 				return quizList;
 			} 
 		}
