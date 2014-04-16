@@ -30,7 +30,7 @@ public class QuizServerLauncher {
 			System.setSecurityManager(new RMISecurityManager());
 		}
 		try {
-			// 2. Create the registry if there is not one
+			// 2. Create the registry
 			LocateRegistry.createRegistry(1099);
 			// 3. Create the server object
 			QuizServerController server = new QuizServerControllerImpl();
