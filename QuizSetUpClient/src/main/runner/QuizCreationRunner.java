@@ -2,6 +2,7 @@ package runner;
 
 import java.io.PrintStream;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 import domain.PossibleAnswer;
 import domain.Question;
@@ -77,7 +78,8 @@ public class QuizCreationRunner {
 	
 	private void printQuiz() {
 		o.println("\nQuiz: " + quiz.getTitle());
-		for (int i = 1; i <= quiz.getQuestions().size(); i++) {
+		TreeSet<Integer> questionNumbers = new TreeSet<Integer>(quiz.getQuestions().keySet());
+		for (Integer i : questionNumbers) {
 			Question question = quiz.getQuestion(i);
 			printQuestion(question);
 		}
@@ -161,11 +163,11 @@ public class QuizCreationRunner {
 			o.println("Null Question");
 			return;
 		}
-		o.println("  Question " + question.getQuestionNumber() + ": " + question.getQuestionText());
-		for (int i = 0; i < question.getPossibleAnswers().size(); i++) {
-			Character c = (char)('a' + i);
+		o.println("  Question " + question);
+		TreeSet<Character> answerChars = new TreeSet<Character>(question.getPossibleAnswers().keySet());
+		for (Character c : answerChars) {
 			PossibleAnswer possibleAnswer = question.getPossibleAnswer(c);
-			o.print("    Answer " + possibleAnswer.getAnswerCharacter() + ": " + possibleAnswer.getAnswerText());
+			o.print("    Answer " + possibleAnswer);
 			String correct = " ";
 			if(possibleAnswer.isCorrect()) {
 				correct = " [T]";
