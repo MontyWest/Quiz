@@ -65,11 +65,15 @@ public class QuizPlayClientRunner {
 	}
 
 	private void playQuiz() {
-		printQuizList();
 		Quiz quiz;
 		try {
-			Long choice = 0l;
 			Set<Long> quizIds = server.getQuizIds();
+			if (quizIds == null || quizIds.isEmpty()) {
+				o.println("There are no quizzes to play.");
+				return;
+			}
+			printQuizList();
+			Long choice = 0l;
 			while (!quizIds.contains(choice)) {
 				o.print("Which quiz would you like to play? (Enter id): ");
 				try {
@@ -94,12 +98,16 @@ public class QuizPlayClientRunner {
 			o.println("You scored: " + scoreAmount);
 			o.print("Please enter you name: ");
 			String scoreName = i.nextLine();
-	
-			boolean topScore = server.recieveScoreForQuiz(quiz.getId(), scoreAmount, scoreName);
-			if (topScore) {
-				o.println("You got the top score, congratulations!");
-			} else {
-				o.println("You didn't get the top score.");
+			
+			try {
+				boolean topScore = server.recieveScoreForQuiz(quiz.getId(), scoreAmount, scoreName);
+				if (topScore) {
+					o.println("You got the top score, congratulations!");
+				} else {
+					o.println("You didn't get the top score.");
+				}
+			} catch (RemoteException e) {
+				o.println("Server error sending score" + e.getMessage());
 			}
 		} catch (QuizInvalidException e) {
 			o.println(e.getMessage());
@@ -108,7 +116,7 @@ public class QuizPlayClientRunner {
 		} catch (IllegalArgumentException e) {
 			o.println(e.getMessage());
 		} catch (RemoteException e) {
-			o.println("Server error sending score" + e.getMessage());
+			o.println("Server error" + e.getMessage());
 		}
 	}
 }
