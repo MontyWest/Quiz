@@ -129,10 +129,14 @@ public class QuizSetUpClientRunner {
 	}
 	
 	private void closeQuiz() {
-		printQuizList();
 		try {
-			Long choice = 0l;
 			Set<Long> quizIds = server.getQuizIds();
+			if (quizIds == null || quizIds.isEmpty()) {
+				o.println("There are no quizzes to close.");
+				return;
+			}
+			printQuizList();
+			Long choice = 0l;
 			while (!quizIds.contains(choice)) {
 				o.print("Which quiz would you like to close? [WARNING: When closed no one will be able to play this quiz.");
 				try {
@@ -140,14 +144,14 @@ public class QuizSetUpClientRunner {
 				} catch (NumberFormatException e) {
 					o.println("You must enter an id.");
 				}
-				try {
-					Quiz closedQuiz = server.closeQuiz(choice);
-					o.println("Top Score for Quiz: " + closedQuiz.getTitle() + " was");
-					o.println(closedQuiz.getTopScore());
-					o.println("Out of " + closedQuiz.getMaxScore());
-				} catch (QuizNotFoundException e) {
-					o.println(e.getMessage());
-				}
+			}
+			try {
+				Quiz closedQuiz = server.closeQuiz(choice);
+				o.println("Top Score for Quiz: " + closedQuiz.getTitle() + " was");
+				o.println(closedQuiz.getTopScore());
+				o.println("Out of " + closedQuiz.getMaxScore());
+			} catch (QuizNotFoundException e) {
+				o.println(e.getMessage());
 			}
 		} catch (RemoteException e) {
 			o.println("Server error" + e.getMessage());
