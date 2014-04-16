@@ -58,6 +58,7 @@ public class QuizPlayServiceImpl implements QuizPlayService {
 		Score score = scoreFactory.getEmptyScore();
 		score.setAmount(scoreAmount);
 		score.setName(scoreName);
+		score.setQuizId(quizId);
 		return quiz.compareAndSetTopScore(score);
 	}
 
