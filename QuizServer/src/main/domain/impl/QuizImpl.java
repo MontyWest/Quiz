@@ -2,6 +2,7 @@ package domain.impl;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -15,10 +16,10 @@ public class QuizImpl implements Quiz, Serializable {
 	
 	private Long id;
 	private String title;
-	private Map<Integer, Question> questions;
+	private Map<Integer, Question> questions = new HashMap<Integer, Question>();
 	private int maxScore;
 	private Score topScore;
-	private AtomicInteger lastQuestionNumber;
+	private AtomicInteger lastQuestionNumber = new AtomicInteger();
 	
 	public QuizImpl() {}
 	

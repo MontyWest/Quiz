@@ -14,10 +14,10 @@ public class QuestionImpl implements Question, Serializable {
 	private static final long serialVersionUID = 3L;
 	
 	private String questionText;
-	private Map<Character, PossibleAnswer> possibleAnswers;
+	private Map<Character, PossibleAnswer> possibleAnswers = new HashMap<Character, PossibleAnswer>();;
 	private Long quizId;
 	private Integer questionNumber;
-	private AtomicInteger lastAnswerCharInt;
+	private AtomicInteger lastAnswerCharInt = new AtomicInteger();
 	
 	public QuestionImpl(){
 		this.lastAnswerCharInt.set(((int)'a')-1);
@@ -26,7 +26,6 @@ public class QuestionImpl implements Question, Serializable {
 	public QuestionImpl(String questionText, Integer questionNumber, Long quizId) {
 		this.questionText = questionText;
 		this.quizId = quizId;
-		this.possibleAnswers = new HashMap<Character, PossibleAnswer>();
 		this.lastAnswerCharInt.set(((int)'a')-1);
 	}
 	
