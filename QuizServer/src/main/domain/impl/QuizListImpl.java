@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -16,8 +17,8 @@ public class QuizListImpl implements QuizList, Serializable {
 	
 	private static QuizList instance = new QuizListImpl();
 
-	private Map<Long, Quiz> quizzes;
-	private AtomicLong lastQuizId;
+	private Map<Long, Quiz> quizzes = new HashMap<Long, Quiz>();
+	private AtomicLong lastQuizId = new AtomicLong();
 
 	public static QuizList getInstance() {
 		return instance;
@@ -65,6 +66,9 @@ public class QuizListImpl implements QuizList, Serializable {
 
 	@Override
 	public String display() {
+		if (quizzes == null || quizzes.isEmpty()) {
+			return ("No quizzes to display.");
+		}
 		StringBuilder sb = new StringBuilder();
 		sb.append("### Quiz List ###/n");
 		for (Map.Entry<Long, Quiz> entry : quizzes.entrySet()) {
