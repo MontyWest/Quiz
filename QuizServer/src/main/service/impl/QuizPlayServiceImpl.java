@@ -1,6 +1,6 @@
 package service.impl;
 
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import service.QuizPlayService;
@@ -26,7 +26,7 @@ public class QuizPlayServiceImpl implements QuizPlayService {
 	@Override
 	public Set<Long> getQuizIdSet() {
 		QuizList quizList = QuizListImpl.getInstance();
-		return (Set<Long>)Collections.unmodifiableSet(quizList.getQuizzes().keySet());
+		return new HashSet<Long>(quizList.getQuizzes().keySet());
 	}
 
 	@Override
