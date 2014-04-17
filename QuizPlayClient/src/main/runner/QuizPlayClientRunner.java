@@ -21,7 +21,6 @@ public class QuizPlayClientRunner {
 	}
 
 	public void start() {
-		// TODO
 		this.menu();
 		o.println("Quiz Player shutting down.");
 	}
