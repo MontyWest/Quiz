@@ -26,7 +26,7 @@ public class QuizPlayServiceImpl implements QuizPlayService {
 	@Override
 	public Set<Long> getQuizIdSet() {
 		QuizList quizList = QuizListImpl.getInstance();
-		return Collections.unmodifiableSet(quizList.getQuizzes().keySet());
+		return (Set<Long>)Collections.unmodifiableSet(quizList.getQuizzes().keySet());
 	}
 
 	@Override
