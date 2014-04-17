@@ -57,6 +57,7 @@ public class QuizPlayRunnerTest {
 
 	@Test
 	public void testsStart() {
+		//TODO: Override System.in so input can be specified and multiple tests can be run
 		QuizPlayRunner qpr = new QuizPlayRunner(testQuiz);
 		qpr.start();
 		int score = qpr.getScoreAmount();
