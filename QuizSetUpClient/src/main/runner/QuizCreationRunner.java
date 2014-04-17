@@ -78,10 +78,14 @@ public class QuizCreationRunner {
 	
 	private void printQuiz() {
 		o.println("\nQuiz: " + quiz.getTitle());
-		TreeSet<Integer> questionNumbers = new TreeSet<Integer>(quiz.getQuestions().keySet());
-		for (Integer i : questionNumbers) {
-			Question question = quiz.getQuestion(i);
-			printQuestion(question);
+		if (quiz.getQuestions() == null) {
+			o.println("  No Questions");
+		} else {
+			TreeSet<Integer> questionNumbers = new TreeSet<Integer>(quiz.getQuestions().keySet());
+			for (Integer i : questionNumbers) {
+				Question question = quiz.getQuestion(i);
+				printQuestion(question);
+			}
 		}
 		o.println("\nPress enter when done");
 		i.nextLine();
@@ -104,7 +108,7 @@ public class QuizCreationRunner {
 	
 	private void editQuestion() {
 		int choice = 0;
-		o.print("Enter a quesiton number to edit: ");
+		o.print("Enter a question number to edit: ");
 		try {
 			choice = Integer.parseInt(i.nextLine());
 		} catch (NumberFormatException e) {
@@ -115,6 +119,7 @@ public class QuizCreationRunner {
 		if (question == null) {
 			o.println("Question doesn't exist");
 		} else {
+			printQuestion(question);
 			questionMenu(question);
 		}
 	}
@@ -126,7 +131,7 @@ public class QuizCreationRunner {
 			o.println("1. View Question");
 			o.println("2. Edit Question Text");
 			o.println("3. Add new Possible Answer");
-			o.println("4. Edit Possible Answe");
+			o.println("4. Edit Possible Answer");
 			o.println("5. Exit Question menu and add Question to Quiz");
 			int choice = 0;
 			while (choice < 1 || choice > 5) {
@@ -163,16 +168,21 @@ public class QuizCreationRunner {
 			o.println("Null Question");
 			return;
 		}
-		o.println("  Question " + question);
-		TreeSet<Character> answerChars = new TreeSet<Character>(question.getPossibleAnswers().keySet());
-		for (Character c : answerChars) {
-			PossibleAnswer possibleAnswer = question.getPossibleAnswer(c);
-			o.print("    Answer " + possibleAnswer);
-			String correct = " ";
-			if(possibleAnswer.isCorrect()) {
-				correct = " [T]";
+		int questionNumber = quiz.getQuestions().size() + 1;
+		o.println("  Question " + questionNumber + ": " + question.getQuestionText());
+		if (question.getPossibleAnswers() == null) {
+			o.println("    No answers");
+		} else {
+			TreeSet<Character> answerChars = new TreeSet<Character>(question.getPossibleAnswers().keySet());
+			for (Character c : answerChars) {
+				PossibleAnswer possibleAnswer = question.getPossibleAnswer(c);
+				o.print("    Answer " + possibleAnswer);
+				String correct = " ";
+				if(possibleAnswer.isCorrect()) {
+					correct = " [T]";
+				}
+				o.println(correct);
 			}
-			o.println(correct);
 		}
 	}
 	
@@ -200,12 +210,13 @@ public class QuizCreationRunner {
 	
 	private void editPossibleAnswer(Question question) {
 		char choice = '.';
-		o.print("Enter a quesiton number to edit: ");
+		o.print("Enter a answer character to edit: ");
 		choice = i.nextLine().charAt(0);
 		PossibleAnswer possibleAnswer = question.getPossibleAnswer(choice);
 		if (possibleAnswer == null) {
 			o.println("Answer doesn't exist");
 		} else {
+			o.println(possibleAnswer);
 			o.println("Edit Answer text? (y/n)");
 			if (i.nextLine().equals("y")) {
 				setTextForPossibleAnswer(possibleAnswer);
