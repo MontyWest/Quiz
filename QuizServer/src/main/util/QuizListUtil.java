@@ -18,8 +18,8 @@ public class QuizListUtil {
 			posAnsA.setAnswerText("A");
 			posAnsA.setCorrect(true);
 			PossibleAnswer posAnsB = quizFactory.getEmptyPossibleAnswer();
-			posAnsA.setAnswerText("B");
-			posAnsA.setCorrect(false);
+			posAnsB.setAnswerText("B");
+			posAnsB.setCorrect(false);
 			Question question = quizFactory.getEmptyQuestion();
 			question.setQuestionText("A or B?");
 			question.addPossibleAnswer(posAnsA);
@@ -28,6 +28,7 @@ public class QuizListUtil {
 			quiz.setTitle("Letter Quiz!");
 			quiz.addQuestion(question);
 			quizList.addQuiz(quiz);
+			System.out.println(quiz);
 			System.out.println("Example quiz loaded");
 		}
 	}

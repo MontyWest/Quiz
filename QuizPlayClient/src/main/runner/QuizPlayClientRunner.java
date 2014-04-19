@@ -49,7 +49,7 @@ public class QuizPlayClientRunner {
 				playQuiz();
 				break;
 			}
-			o.println("Do you wish to quit? (y/n)");
+			o.println("\nDo you wish to quit? (y/n)");
 			cont = i.nextLine();
 		} while (!cont.equals("y"));
 	}
@@ -74,7 +74,7 @@ public class QuizPlayClientRunner {
 			printQuizList();
 			Long choice = 0l;
 			while (!quizIds.contains(choice)) {
-				o.print("Which quiz would you like to play? (Enter id): ");
+				o.print("\nWhich quiz would you like to play? (Enter id): ");
 				try {
 					choice = Long.parseLong(i.nextLine());
 				} catch (NumberFormatException e) {

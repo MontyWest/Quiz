@@ -75,7 +75,7 @@ public class QuizServerControllerImpl extends UnicastRemoteObject implements Qui
 			return id;
 		} else {
 			log("Quiz invalid.");
-			throw new QuizInvalidException();
+			throw new QuizInvalidException("Invalid quiz");
 		}
 	}
 
@@ -85,7 +85,7 @@ public class QuizServerControllerImpl extends UnicastRemoteObject implements Qui
 		log("Close quiz " + quizId + " requested.");
 		Quiz quiz = setUpService.removeQuiz(quizId);
 		if (quiz == null) {
-			throw new QuizNotFoundException("ID: " + quizId);
+			throw new QuizNotFoundException("Can't find quiz - ID: " + quizId);
 		} else {
 			Score topScore = quiz.getTopScore();
 			log("Quiz " + quizId + " closed, top score: " + topScore.getAmount() + " by " + topScore.getName());

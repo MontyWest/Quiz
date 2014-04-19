@@ -37,7 +37,7 @@ public class QuizPlayServiceImpl implements QuizPlayService {
 			return null;
 		}
 		if (!quiz.isValid()) {
-			throw new QuizInvalidException("ID: " + quizId);
+			throw new QuizInvalidException("Invalid quiz - ID: " + quizId);
 		}
 		return quiz;
 	}
@@ -47,10 +47,10 @@ public class QuizPlayServiceImpl implements QuizPlayService {
 		QuizList quizList = QuizListImpl.getInstance();
 		Quiz quiz = quizList.getQuiz(quizId);
 		if (quiz == null) {
-			throw new QuizNotFoundException("ID: " + quizId);
+			throw new QuizNotFoundException("Can't find quiz - ID: " + quizId);
 		}
 		if (!quiz.isValid()) {
-			throw new QuizInvalidException("ID: " + quizId);
+			throw new QuizInvalidException("Invalid quiz - ID: " + quizId);
 		}
 		if (scoreAmount > quiz.getMaxScore()) {
 			throw new IllegalArgumentException("Score " + scoreAmount + " too high for quiz " + quizId);

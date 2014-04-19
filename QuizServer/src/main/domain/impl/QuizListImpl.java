@@ -72,9 +72,8 @@ public class QuizListImpl implements QuizList, Serializable {
 			return ("No quizzes to display.");
 		}
 		StringBuilder sb = new StringBuilder();
-		sb.append("### Quiz List ###/n");
 		for (Map.Entry<Long, Quiz> entry : quizzes.entrySet()) {
-			sb.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+			sb.append(entry.getValue()).append("\n");
 		}
 		return sb.toString();
 	}
