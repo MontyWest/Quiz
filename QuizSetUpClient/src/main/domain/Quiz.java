@@ -21,7 +21,8 @@ public interface Quiz {
 	public Question getQuestion(Integer questionNumber);
 	
 	/***
-	 * Adds question to the quiz
+	 * Adds question to the quiz, assigning the correct question number
+	 * and updating the maxScore
 	 * 
 	 * @param question
 	 * @return the question number of added question
