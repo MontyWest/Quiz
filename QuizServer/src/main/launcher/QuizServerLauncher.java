@@ -9,11 +9,13 @@ import java.rmi.registry.LocateRegistry;
 import persistence.QuizListIO;
 import remote.QuizServerController;
 import remote.impl.QuizServerControllerImpl;
+import util.QuizListUtil;
 
 public class QuizServerLauncher {
 
 	public static void main(String[] args) {
 		QuizListIO.loadQuizList();
+		QuizListUtil.loadExampleQuizIfEmpty();
 		
 		launch();
 		

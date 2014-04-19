@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import domain.PossibleAnswer;
@@ -56,6 +57,7 @@ public class QuestionImpl implements Question, Serializable {
 	
 	@Override
 	public Character addPossibleAnswer(PossibleAnswer possibleAnswer) {
+		answerCharacterCheck();
 		Character answerCharacter = (char)(this.lastAnswerCharInt.incrementAndGet());
 		possibleAnswer.setAnswerCharacter(answerCharacter);
 		this.possibleAnswers.put(answerCharacter, possibleAnswer);
@@ -70,6 +72,11 @@ public class QuestionImpl implements Question, Serializable {
 	@Override
 	public void setQuizId(Long quizId) {
 		this.quizId = quizId;
+	}
+	
+	@Override
+	public void cascadeSetQuizId(Long quizId) {
+		setQuizId(quizId);
 		for (PossibleAnswer possibleAnswer : possibleAnswers.values()) {
 			possibleAnswer.setQuizId(quizId);
 		}
@@ -79,9 +86,14 @@ public class QuestionImpl implements Question, Serializable {
 	public Integer getQuestionNumber() {
 		return questionNumber;
 	}
-
+	
 	@Override
 	public void setQuestionNumber(Integer questionNumber) {
+		this.questionNumber = questionNumber;
+	}
+
+	@Override
+	public void cascadeSetQuestionNumber(Integer questionNumber) {
 		this.questionNumber = questionNumber;
 		for (PossibleAnswer possibleAnswer : possibleAnswers.values()) {
 			possibleAnswer.setQuestionNumber(questionNumber);
@@ -110,6 +122,17 @@ public class QuestionImpl implements Question, Serializable {
 	@Override
 	public String toString() {
 		return this.questionNumber + ": " + this.questionText;
+	}
+	
+	private void answerCharacterCheck() {
+		if(possibleAnswers.containsKey((char)(lastAnswerCharInt.get() + 1))) {
+			Set<Character> ansChars = possibleAnswers.keySet();
+			for (Character c : ansChars) {
+				if (((int)c) > lastAnswerCharInt.get()) {
+					lastAnswerCharInt.set((int)c);
+				}
+			}
+		}
 	}
 	
 }

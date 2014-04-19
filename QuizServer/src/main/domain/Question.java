@@ -22,7 +22,8 @@ public interface Question {
 	public PossibleAnswer getPossibleAnswer(Character answerCharacter);
 	
 	/***
-	 * Adds a new possible answer to the question
+	 * Adds a new possible answer to the question, assigning the correct
+	 * character.
 	 * 
 	 * @param possibleAnswer
 	 * @return character of the possible answer
@@ -31,14 +32,18 @@ public interface Question {
 	
 	public Long getQuizId();
 	
+	public void setQuizId(Long quizId);
+	
 	/***
 	 * Sets quiz id and updates possible answers quiz id
 	 * 
 	 * @param questionNumber
 	 */
-	public void setQuizId(Long quizId);
+	public void cascadeSetQuizId(Long quizId);
 	
 	public Integer getQuestionNumber();
+	
+	public void setQuestionNumber(Integer questionNumber);
 	
 	/***
 	 * Sets question number and updates possible answers question
@@ -46,7 +51,7 @@ public interface Question {
 	 * 
 	 * @param questionNumber
 	 */
-	public void setQuestionNumber(Integer questionNumber);
+	public void cascadeSetQuestionNumber(Integer questionNumber);
 	
 	/***
 	 * Validates the question by checking that question text is

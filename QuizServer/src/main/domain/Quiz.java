@@ -6,12 +6,14 @@ public interface Quiz {
 
 	public Long getId();
 	
+	public void setId(Long id);
+	
 	/***
-	 * Sets the id for the quiz, and updates questions and topscore quizId
+	 * Sets the id for the quiz, and updates questions, answers and topscore quizId
 	 * 
 	 * @param id
 	 */
-	public void setId(Long id);
+	public void cascadeSetId(Long id);
 	
 	public String getTitle();
 	
@@ -30,7 +32,8 @@ public interface Quiz {
 	public Question getQuestion(Integer questionNumber);
 	
 	/***
-	 * Adds question to the quiz
+	 * Adds question to the quiz, assigning the correct question number
+	 * and updating the maxScore
 	 * 
 	 * @param question
 	 * @return the question number of added question
@@ -55,7 +58,7 @@ public interface Quiz {
 	public boolean compareAndSetTopScore(Score newScore);
 	
 	/***
-	 * Validates the quiz by checking it has questions,
+	 * Validates the quiz by checking it has a title and questions,
 	 * that those questions have answers and has at least
 	 * one correct answer.
 	 * 

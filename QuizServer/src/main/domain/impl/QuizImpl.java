@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import domain.Question;
@@ -31,8 +32,13 @@ public class QuizImpl implements Quiz, Serializable {
 	@Override
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	@Override
+	public void cascadeSetId(Long id) {
+		setId(id);
 		for (Question question : questions.values()) {
-			question.setQuizId(id);
+			question.cascadeSetQuizId(id);
 		}
 		if (topScore != null) {
 			topScore.setQuizId(id);
@@ -57,7 +63,9 @@ public class QuizImpl implements Quiz, Serializable {
 	@Override
 	public void setQuestions(Map<Integer, Question> questions) {
 		this.questions = questions;
-		setMaxScore(questions.size());
+		if (questions != null) {
+			setMaxScore(questions.size());
+		}
 	}
 	
 	@Override
@@ -67,8 +75,9 @@ public class QuizImpl implements Quiz, Serializable {
 	
 	@Override
 	public Integer addQuestion(Question question) {
+		questionNumberCheck();
 		Integer questionNumber = this.lastQuestionNumber.incrementAndGet();
-		question.setQuestionNumber(questionNumber);
+		question.cascadeSetQuestionNumber(questionNumber);
 		this.questions.put(questionNumber, question);
 		setMaxScore(this.questions.size());
 		return questionNumber;
@@ -128,5 +137,16 @@ public class QuizImpl implements Quiz, Serializable {
 	@Override
 	public String toString() {
 		return this.id + ": " + this.title;
+	}
+	
+	private void questionNumberCheck() {
+		if(questions.containsKey(lastQuestionNumber.get() + 1)) {
+			Set<Integer> questionNumbers = questions.keySet();
+			for (Integer num : questionNumbers) {
+				if (num > lastQuestionNumber.get()) {
+					lastQuestionNumber.set(num);
+				}
+			}
+		}
 	}
 }

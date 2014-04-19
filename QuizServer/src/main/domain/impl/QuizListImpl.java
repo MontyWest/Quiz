@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
 import domain.Quiz;
@@ -52,8 +53,9 @@ public class QuizListImpl implements QuizList, Serializable {
 
 	@Override
 	public Long addQuiz(Quiz quiz) {
+		idCheck();
 		Long quizId = lastQuizId.incrementAndGet();
-		quiz.setId(quizId);
+		quiz.cascadeSetId(quizId);
 		this.quizzes.put(quizId, quiz);
 		return quizId;			
 	}
@@ -75,6 +77,17 @@ public class QuizListImpl implements QuizList, Serializable {
 			sb.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
 		}
 		return sb.toString();
+	}
+	
+	private void idCheck() {
+		if(quizzes.containsKey(lastQuizId.get() + 1l)) {
+			Set<Long> quizIds = quizzes.keySet();
+			for (Long id : quizIds) {
+				if (id > lastQuizId.get()) {
+					lastQuizId.set(id);
+				}
+			}
+		}
 	}
 	
 }
