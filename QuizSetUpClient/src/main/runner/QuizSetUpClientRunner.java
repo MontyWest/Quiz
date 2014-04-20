@@ -66,6 +66,7 @@ public class QuizSetUpClientRunner {
 		o.println("\n# Quiz List #\n");
 		try {
 			o.print(server.getQuizListDisplay());
+			o.println("");
 		} catch (RemoteException e) {
 			o.println("Server error" + e.getMessage());
 		}
@@ -122,6 +123,8 @@ public class QuizSetUpClientRunner {
 					o.println("Top Score for Quiz: " + closedQuiz.getTitle() + " was:");
 					o.print(closedQuiz.getTopScore());
 					o.println(" out of " + closedQuiz.getMaxScore());
+					o.println("\nPress enter when done");
+					i.nextLine();
 				}
 			} catch (QuizNotFoundException e) {
 				o.println(e.getMessage());

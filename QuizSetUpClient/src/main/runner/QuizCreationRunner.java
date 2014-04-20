@@ -112,7 +112,7 @@ public class QuizCreationRunner {
 		}
 		for (Question question : quiz.getQuestions().values()) {
 			o.print(question);
-			String valid = " ";
+			String valid = " (invalid)";
 			if (question.isValid()) valid = " (valid)";
 			o.println(valid);
 		}
@@ -189,7 +189,10 @@ public class QuizCreationRunner {
 		if (questionNumber == null)	{
 			questionNumber = quiz.getQuestions().size() + 1;
 		}
-		o.println("  Question " + questionNumber + ": " + question.getQuestionText());
+		o.print("  Question " + questionNumber + ": " + question.getQuestionText());
+		String valid = " (invalid)";
+		if (question.isValid()) valid = " (valid)";
+		o.println(valid);
 		if (question.getPossibleAnswers() == null || question.getPossibleAnswers().isEmpty()) {
 			o.println("    No answers");
 		} else {
