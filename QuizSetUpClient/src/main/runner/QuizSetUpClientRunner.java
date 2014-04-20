@@ -57,7 +57,7 @@ public class QuizSetUpClientRunner {
 				break;
 			case 4:
 				o.println("Are you sure? (y/n)");
-				cont =  i.nextLine().equals("y");
+				cont = !(i.nextLine().equals("y"));
 			}
 		}
 	}
@@ -115,9 +115,13 @@ public class QuizSetUpClientRunner {
 			}
 			try {
 				Quiz closedQuiz = server.closeQuiz(choice);
-				o.println("Top Score for Quiz: " + closedQuiz.getTitle() + " was");
-				o.println(closedQuiz.getTopScore());
-				o.println("Out of " + closedQuiz.getMaxScore());
+				if (closedQuiz.getTopScore() == null) {
+					o.println("No scores recorded");
+				} else {
+					o.println("Top Score for Quiz: " + closedQuiz.getTitle() + " was:");
+					o.print(closedQuiz.getTopScore());
+					o.println(" out of " + closedQuiz.getMaxScore());
+				}
 			} catch (QuizNotFoundException e) {
 				o.println(e.getMessage());
 			}

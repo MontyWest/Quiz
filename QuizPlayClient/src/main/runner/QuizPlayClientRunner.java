@@ -26,8 +26,8 @@ public class QuizPlayClientRunner {
 	}
 
 	private void menu() {
-		String cont;
-		do {
+		boolean cont = true;
+		while (cont) {
 			o.println("\n### Menu ###\n");
 			o.println("1. View Quiz List");
 			o.println("2. Play Quiz");
@@ -48,10 +48,11 @@ public class QuizPlayClientRunner {
 			case 2:
 				playQuiz();
 				break;
+			case 3:
+				o.println("Are you sure? (y/n)");
+				cont = !(i.nextLine().equals("y"));
 			}
-			o.println("\nDo you wish to quit? (y/n)");
-			cont = i.nextLine();
-		} while (!cont.equals("y"));
+		}
 	}
 
 	private void printQuizList() {

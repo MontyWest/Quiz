@@ -57,6 +57,6 @@ public class ScoreImpl implements Score, Serializable {
 	
 	@Override
 	public String toString() {
-		return "Score: " + this.amount + " by " + this.name;
+		return (this.amount + " by " + this.name);
 	}
 }

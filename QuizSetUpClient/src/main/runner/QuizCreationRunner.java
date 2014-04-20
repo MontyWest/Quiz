@@ -107,8 +107,14 @@ public class QuizCreationRunner {
 	}
 	
 	private void editQuestion() {
+		if (quiz.getQuestions() == null || quiz.getQuestions().isEmpty()) {
+			o.println("No questions");
+		}
 		for (Question question : quiz.getQuestions().values()) {
-			o.println(question);
+			o.print(question);
+			String valid = " ";
+			if (question.isValid()) valid = " (valid)";
+			o.println(valid);
 		}
 		int choice = 0;
 		o.print("Enter a question number to edit: ");
@@ -218,6 +224,9 @@ public class QuizCreationRunner {
 	}
 	
 	private void editPossibleAnswer(Question question) {
+		if (question.getPossibleAnswers() == null || question.getPossibleAnswers().isEmpty()) {
+			o.println("No answers");
+		}
 		for (PossibleAnswer possibleAnswer : question.getPossibleAnswers().values()) {
 			printPossibleAnswer(possibleAnswer);
 		}
@@ -242,7 +251,7 @@ public class QuizCreationRunner {
 	
 	private void printPossibleAnswer(PossibleAnswer possibleAnswer) {
 		o.print("    Answer " + possibleAnswer);
-		String correct = "[F]";
+		String correct = " [F]";
 		if(possibleAnswer.isCorrect()) {
 			correct = " [T]";
 		}
