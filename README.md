@@ -4,7 +4,7 @@
 Quiz project - PiJ Coursework 3
 
 
-###Instructons
+###Instructions
 ===========
 * Clone the repositry
 * Using the command line, go to the cloned folder 'Quiz'
