@@ -11,8 +11,12 @@ public interface PossibleAnswer {
 	public void setCorrect(boolean correct);
 	
 	public Integer getQuestionNumber();
+	
+	public void setQuestionNumber(Integer quesitonNumber);
 
 	public Character getAnswerCharacter();
+	
+	public void setAnswerCharacter(Character answerCharacter);
 	
 	/***
 	 * Checks that answerText is not null or empty and

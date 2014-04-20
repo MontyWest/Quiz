@@ -143,6 +143,12 @@ public class QuizCreationRunnerTest {
 		public void setQuestionNumber(Integer questionNumber) {
 			this.questionNumber = questionNumber;
 		}
+		public void cascadeSetQuestionNumber(Integer questionNumber) {
+			this.questionNumber = questionNumber;
+			for (PossibleAnswer possibleAnswer : possibleAnswers.values()) {
+				possibleAnswer.setQuestionNumber(questionNumber);
+			}
+		}
 		public boolean isValid() {
 			return valid;
 		}
