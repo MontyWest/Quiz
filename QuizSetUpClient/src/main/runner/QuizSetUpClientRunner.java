@@ -93,6 +93,8 @@ public class QuizSetUpClientRunner {
 				} catch (IllegalArgumentException e) {
 					o.println("Empty quiz sent, not added.");
 				}
+				o.println("\nPress enter when done");
+				i.nextLine();
 			}
 		}
 	}
