@@ -88,7 +88,11 @@ public class QuizServerControllerImpl extends UnicastRemoteObject implements Qui
 			throw new QuizNotFoundException("Can't find quiz - ID: " + quizId);
 		} else {
 			Score topScore = quiz.getTopScore();
-			log("Quiz " + quizId + " closed, top score: " + topScore.getAmount() + " by " + topScore.getName());
+			if (topScore == null) {
+				log("Quiz " + quizId + " closed, no scores recorded");
+			} else {
+				log("Quiz " + quizId + " closed, top score: " + topScore.getAmount() + " by " + topScore.getName());
+			}
 			return quiz;
 		}
 	}

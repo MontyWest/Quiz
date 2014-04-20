@@ -28,7 +28,6 @@ public class QuizListUtil {
 			quiz.setTitle("Letter Quiz!");
 			quiz.addQuestion(question);
 			quizList.addQuiz(quiz);
-			System.out.println(quiz);
 			System.out.println("Example quiz loaded");
 		}
 	}

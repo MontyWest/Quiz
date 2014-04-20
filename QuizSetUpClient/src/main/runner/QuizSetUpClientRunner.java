@@ -29,8 +29,8 @@ public class QuizSetUpClientRunner {
 	}
 	
 	private void menu() {
-		String cont;
-		do {
+		boolean cont = true;
+		while (cont) {
 			o.println("\n### Menu ###\n");
 			o.println("1. View Quiz List");
 			o.println("2. Create Quiz");
@@ -55,10 +55,11 @@ public class QuizSetUpClientRunner {
 			case 3:
 				closeQuiz();
 				break;
+			case 4:
+				o.println("Are you sure? (y/n)");
+				cont =  i.nextLine().equals("y");
 			}
-			o.println("Do you wish to quit? (y/n)");
-			cont =  i.nextLine();
-		} while (!cont.equals("y"));
+		}
 	}
 	
 	private void printQuizList() {
@@ -81,7 +82,7 @@ public class QuizSetUpClientRunner {
 				send = "n";
 				try {
 					Long id = server.recieveNewQuiz(quiz);
-					o.println("Congratulations your quiz has bee added, id:" + id);
+					o.println("Congratulations your quiz has been added, id:" + id);
 				} catch (RemoteException e) {
 					o.println("Server error, please try again. " + e.getMessage());
 					o.println("Would you like to try to send again? (y/n)");
@@ -105,7 +106,7 @@ public class QuizSetUpClientRunner {
 			printQuizList();
 			Long choice = 0l;
 			while (!quizIds.contains(choice)) {
-				o.print("Which quiz would you like to close? [WARNING: When closed no one will be able to play this quiz.");
+				o.println("Which quiz would you like to close? [WARNING: When closed no one will be able to play this quiz.]");
 				try {
 					choice = Long.parseLong(i.nextLine());
 				} catch (NumberFormatException e) {
