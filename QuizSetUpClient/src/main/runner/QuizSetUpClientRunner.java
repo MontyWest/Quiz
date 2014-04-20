@@ -118,6 +118,7 @@ public class QuizSetUpClientRunner {
 				if (closedQuiz.getTopScore() == null) {
 					o.println("No scores recorded");
 				} else {
+					o.println("Quiz Closed!");
 					o.println("Top Score for Quiz: " + closedQuiz.getTitle() + " was:");
 					o.print(closedQuiz.getTopScore());
 					o.println(" out of " + closedQuiz.getMaxScore());
