@@ -93,9 +93,9 @@ public class QuizSetUpClientRunner {
 				} catch (IllegalArgumentException e) {
 					o.println("Empty quiz sent, not added.");
 				}
-				o.println("\nPress enter when done");
-				i.nextLine();
 			}
+			o.println("\nPress enter when done");
+			i.nextLine();
 		}
 	}
 	
@@ -125,9 +125,9 @@ public class QuizSetUpClientRunner {
 					o.println("Top Score for Quiz: " + closedQuiz.getTitle() + " was:");
 					o.print(closedQuiz.getTopScore());
 					o.println(" out of " + closedQuiz.getMaxScore());
-					o.println("\nPress enter when done");
-					i.nextLine();
 				}
+				o.println("\nPress enter when done");
+				i.nextLine();
 			} catch (QuizNotFoundException e) {
 				o.println(e.getMessage());
 			}
